@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Checker : MonoBehaviour
 {
+    public CarController car;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag =="CheckPoint")
         {
-            Debug.Log("num:" + other.GetComponent<Check>().checkNum);
+            car.CheckpointHit(other.GetComponent<Check>().checkNum);
         }
     }
 }

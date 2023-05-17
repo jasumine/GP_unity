@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -27,17 +28,27 @@ public class CarController : MonoBehaviour
     public Transform leftWheel, rightWheel;
     public float maxWheelTurn;
 
+    private int nextCheckpoint;
+    public int currentLap;
 
+    public float lapTime, bestLapTime;
     void Start()
     {
         RB.transform.parent = null;
 
         dragGround = RB.drag;
+        UIManager.instance.LapText.text = currentLap + "/" + GameManager.instance.totalLaps;
     }
 
     // Update is called once per frame
     void Update()
     {
+        lapTime += Time.deltaTime;
+
+        var time = System.TimeSpan.FromSeconds(lapTime); // var가 c++의 auto
+
+        UIManager.instance.currentTimeText.text = string.Format($"{time.Minutes}m {time.Seconds}.{time.Milliseconds}");
+
         speedInput = 0f;
 
         // 위쪽 화살표를 누를경우 0~1의 값, 아래쪽을 누를경우 -1까지
@@ -91,8 +102,7 @@ public class CarController : MonoBehaviour
             // 땅에서  normal 회전
             if (grounded)
         {
-            transform.rotation = Quaternion.FromToRotation(transform.up, normaltarget) *
-                transform.rotation;
+            transform.rotation = Quaternion.FromToRotation(transform.up, normaltarget) * transform.rotation;
         }
 
         // 땅에서 감속
@@ -115,7 +125,7 @@ public class CarController : MonoBehaviour
 
         transform.position = RB.position;
 
-        if (Input.GetAxis("Vertical") != 0)
+        if (grounded&& Input.GetAxis("Vertical") != 0)
         {
             // 현재의 roatation값에서 y축의 값을 넣어주면 회전이 된다.
             // update문에서 컴퓨터의 성능의 차이를 주지않을려면 time.deltaTime을 써준다.
@@ -125,4 +135,41 @@ public class CarController : MonoBehaviour
         }
 
     }
+
+    public void CheckpointHit(int cpNumber)
+    {
+        if(cpNumber==nextCheckpoint)
+        {
+            nextCheckpoint++;
+
+            if (nextCheckpoint == GameManager.instance.checkPoints.Length)
+            {
+                nextCheckpoint = 0;
+                LapFinish();
+            }
+         
+        }
+    }
+
+    public void LapFinish()
+    {
+        currentLap++;
+
+        if(lapTime<bestLapTime || bestLapTime==0)
+        {
+            bestLapTime = lapTime;
+        }
+
+        lapTime = 0;
+
+        var time = System.TimeSpan.FromSeconds(bestLapTime); // var가 c++의 auto
+
+        UIManager.instance.bestTimeText.text = string.Format($"{time.Minutes}m {time.Seconds}.{time.Milliseconds}");
+
+        UIManager.instance.LapText.text = currentLap + "/" + GameManager.instance.totalLaps;
+
+        if (currentLap == GameManager.instance.totalLaps)
+            Application.Quit();
+    }
+
 }

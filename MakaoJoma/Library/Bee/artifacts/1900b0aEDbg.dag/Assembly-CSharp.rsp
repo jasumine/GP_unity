@@ -355,6 +355,7 @@
 "Assets/Script/Check.cs"
 "Assets/Script/Checker.cs"
 "Assets/Script/GameManager.cs"
+"Assets/Script/UIManager.cs"
 -langversion:9.0
 
 /deterministic
