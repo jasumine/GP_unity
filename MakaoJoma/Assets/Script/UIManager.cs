@@ -8,8 +8,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    public TMP_Text currentTimeText, bestTimeText, LapText;
-
+    public TMP_Text currentTimeText, bestTimeText, LapText, LankerText;
     private void Awake()
     {
         instance = this;
