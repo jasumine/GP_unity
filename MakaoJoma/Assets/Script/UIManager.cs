@@ -8,7 +8,10 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    public TMP_Text currentTimeText, bestTimeText, LapText, LankerText;
+    public TMP_Text currentTimeText, bestTimeText, LapText, RankerText, CountText, GoText, raceResultText;
+    
+    public GameObject resultScreen;
+
     private void Awake()
     {
         instance = this;
@@ -23,5 +26,10 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void RestartButton()
+    {
+        GameManager.instance.Restart();
     }
 }
