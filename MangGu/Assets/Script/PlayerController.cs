@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
     public LayerMask isGround;
 
     public Animator anim;
+
+    public GameObject bullet;
+    public Transform firePoint;
+
     void Start()
     {
         charCon = GetComponent<CharacterController>();
@@ -88,7 +92,29 @@ public class PlayerController : MonoBehaviour
 
         camTrans.rotation = Quaternion.Euler(camTrans.rotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f));
 
+        if(Input.GetMouseButtonDown(0))
+        {
+            // 마우스 위치가 발사되는 위치로 가도록?
+            RaycastHit hit;
+            if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
+            {
+                if(Vector3.Distance(camTrans.position , hit.point) > 2)
+                {
+                    firePoint.LookAt(hit.point);
+                }
+            }
+                
+            else
+                firePoint.LookAt(camTrans.position + (camTrans.forward * 30f));
+
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
+
+        }
+
+
         anim.SetFloat("moveSpeed", moveInput.magnitude);
         anim.SetBool("onGround", canJump);
+
+
     }
 }
