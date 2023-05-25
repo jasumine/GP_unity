@@ -7,6 +7,8 @@ using UnityEngineInternal;
 
 public class PlayerController : MonoBehaviour
 {
+   
+
     // 캐릭터 컨트롤러를 쓸 경우 리지드바디가 없어서 직접 설정해줘야한다.
     public float moveSpeed, runSpeed, gravityScale, jumpForce;
     private CharacterController charCon;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        CombineInstance = this;
         charCon = GetComponent<CharacterController>();
     }
 

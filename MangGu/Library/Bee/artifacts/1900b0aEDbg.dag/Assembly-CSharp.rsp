@@ -349,8 +349,11 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 "Assets/Script/BulletController.cs"
 "Assets/Script/CameraContoroller.cs"
+"Assets/Script/Creature.cs"
 "Assets/Script/GameManager.cs"
+"Assets/Script/Monster.cs"
 "Assets/Script/PlayerController.cs"
+"Assets/Script/PlayerHealth.cs"
 "Assets/Script/TargetMove.cs"
 -langversion:9.0
 
