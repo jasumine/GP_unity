@@ -32,9 +32,11 @@ public class BulletController : MonoBehaviour
     {
         if(other.tag=="Enemy")
         {
-            Destroy(gameObject);
+            
             Destroy(other.gameObject);
         }
+
+
 
         Destroy(gameObject);
         Instantiate(impactEffect, transform.position, transform.rotation);

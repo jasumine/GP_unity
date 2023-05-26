@@ -351,6 +351,8 @@
 "Assets/Script/CameraContoroller.cs"
 "Assets/Script/Creature.cs"
 "Assets/Script/GameManager.cs"
+"Assets/Script/Gun.cs"
+"Assets/Script/Idamageable.cs"
 "Assets/Script/Monster.cs"
 "Assets/Script/PlayerController.cs"
 "Assets/Script/PlayerHealth.cs"

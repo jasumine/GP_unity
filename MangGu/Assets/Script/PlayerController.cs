@@ -32,9 +32,11 @@ public class PlayerController : MonoBehaviour
     public GameObject bullet;
     public Transform firePoint;
 
+    // 3°³ ready, empty, reloading.
+
     void Start()
     {
-        CombineInstance = this;
+        
         charCon = GetComponent<CharacterController>();
     }
 
@@ -118,6 +120,12 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("moveSpeed", moveInput.magnitude);
         anim.SetBool("onGround", canJump);
 
+  
+
 
     }
-}
+
+    public void FireShot()
+    {
+        Instantiate(bullet, firePoint)
+    }
